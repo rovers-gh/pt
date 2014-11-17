@@ -1,0 +1,19 @@
+<h1>Welcome</h1>
+<p><?php var_dump($this->flashSession->getMessages()); ?></p>
+<?php if($this->session->auth):?>
+<table>
+  <tr>
+    <th>Email</th>
+    <td><?= $this->session->auth['email']?></td>
+  </tr>
+  <tr>
+    <th>Role</th>
+    <td><?= $this->session->auth['role']?></td>
+  </tr>
+  <tr>
+    <th>Last login</th>
+    <td><?= $this->session->auth['last_login']?></td>
+  </tr>
+</table>
+
+<?php endif;?>

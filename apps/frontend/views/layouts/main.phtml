@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<?php echo $this->tag->getTitle(); ?>
+<?php echo $this->tag->stylesheetLink("css/bootstrap.css");?>
+<?php echo $this->tag->stylesheetLink("css/font-awesome.min.css");?>
+<?php echo $this->tag->stylesheetLink("css/site.css");?>
+<?php $this->assets->outputCss() ?>
+<?php echo $this->tag->javascriptInclude("js/jquery-2.1.0.min.js");?>
+<?php echo $this->tag->javascriptInclude("js/bootstrap.min.js");?>
+<?php $this->assets->outputJs() ?>
+</head>
+<body>
+
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<?php echo $this->tag->linkTo(array('', 'Rovers~', 'class' => 'navbar-brand')) ?>
+				<button class="navbar-toggle" type="button" data-toggle="collapse"
+					data-target="#navbar-main">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="navbar-main">
+				<ul class="nav navbar-nav">
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#" id="themes">Themes <span
+							class="caret"></span></a>
+						<ul class="dropdown-menu" aria-labelledby="themes">
+							<li><a href="../default/">Default</a></li>
+							<li class="divider"></li>
+							<li><a href="../cerulean/">Cerulean</a></li>
+							<li><a href="../cosmo/">Cosmo</a></li>
+							<li><a href="../cyborg/">Cyborg</a></li>
+						</ul></li>
+					<li><a href="../help/">Help</a></li>
+					<li><a href="http://news.bootswatch.com">Blog</a></li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+				<?php if (isset($this->session->auth)): ?>
+					<li><?php echo $this->tag->linkTo('member', $this->session->auth['email']); ?></li>
+					<li><?php echo $this->tag->linkTo('auth/signout', 'Sign out'); ?></li>
+				<?php else: ?>
+					<li><?php echo $this->tag->linkTo('auth/signin', 'Sign in'); ?><!--a href="#" data-toggle="modal" data-target="#signinModal">Sign in</a--></li>
+				<?php endif; ?>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<?php echo $this->getContent(); ?>
+		
+		<footer>
+			<div class="row">
+				<div class="col-lg-12">Copyright &copy; since 2014 Rovers~ All Rights Reserved.</div>
+			</div>
+		</footer>
+		
+		<?php if (!isset($this->session->auth)) : ?>
+		<div class="modal fade" id="signinModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="width:400px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title">Sign in to continue </h4>
+					</div>
+					<div class="modal-body signin">
+						<i class="fa fa-user fa-5x"></i>
+						<form class="form" action="{{config.application.baseUri}}/auth/signin" method="post" novalidate="novalidate">
+								<div class="form-group">
+									<input type="text" name="email" class="form-control" id="inputEmail" placeholder="Email">
+									<input type="text" name="password" class="form-control" id="inputEmail" placeholder="Password">
+								</div>
+								<div class="form-group">
+									<input type="submit" class="form-control btn btn-primary" id="inputEmail" value="Sign in">
+								</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<a href="<?php echo $this->config->application->baseUri; ?>/auth/signup">Create an account</a>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		<?php endif; ?>
+	</div>
+
+
+
+</body>
+</html>

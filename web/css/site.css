@@ -1,0 +1,38 @@
+@CHARSET "UTF-8";
+
+* {
+	/* font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial,
+		Verdana, sans-serif; */
+}
+
+body {
+	padding-top: 50px
+}
+.signin {
+	margin: 10px auto;
+}
+.signin i {
+	padding: 10px 0 0 0;
+	border-radius: 50%;
+	color: white;
+	background-color: #DFDFDF;
+	font-size: 120px;
+	display: block;
+	height: 120px;
+	width: 120px;
+	text-align: center;
+	margin: 10px auto;
+}
+#signinModal .modal-body{
+	margin: 0px 40px;
+}
+
+#signinModal .modal-footer{
+	padding: 20px 60px;
+	text-align: center;
+}
+footer {
+	margin: 2em 0;
+	padding-top: 1em;	
+	border-top: 1px solid #e6e6e6;
+}

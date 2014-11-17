@@ -1,0 +1,16 @@
+<h1>Sign up</h1>
+
+<div class="row">
+<div class="col-lg-6">soon</div>
+<div class="col-lg-6">
+<?php echo Phalcon\Tag::form(array("auth/signup", "method" => "post", "class" => "form-horizontal", "novalidate" => "novalidate")); ?>
+
+<fieldset>
+	<legend></legend>
+	<?php foreach ($form as $element):?>
+	<?php echo $form->renderDecorated($element->getName());?>
+	<?php endforeach;?>
+</fieldset>
+<?php echo Phalcon\Tag::endForm();?>
+</div>
+</div>

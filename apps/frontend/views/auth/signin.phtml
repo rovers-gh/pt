@@ -1,0 +1,22 @@
+
+
+<div class="">
+<h1 align="center">Sign in to countinue</h1>
+<div class="signin panel panel-default" style="width: 360px;">
+<div class="panel-body">
+<?php echo $this->tag->form(array("auth/signin", "method" => "post", "class" => "form-horizontal", "novalidate" => "novalidate")); ?>
+<?php echo $form->render('csrf',array('value'=>$this->security->getToken()));?>
+<fieldset>
+	<i class="fa fa-user fa-5x"></i><br>
+	<div class="<?php (count($form->getMessages())>0?' has-error':'')?>">
+		<?php echo $form->render('email'); ?>
+		<?php echo $form->render('password'); ?>
+	</div>
+	<div align="" class="text-danger"><?php echo $this->flashSession->output(); ?></div>
+	<br>
+	<?php echo $form->render('Sign in'); ?>	</div>
+</fieldset>
+<?php echo $this->tag->endForm() ?>
+</div>
+</div>
+<div align="center"><?php $this->tag->linkTo('auth/signup', 'Create an account') ?></div>
