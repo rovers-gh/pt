@@ -15,23 +15,31 @@ class AuthController extends ControllerBase {
 		
 		if ($request->isPost()) {
 			if ($form->isValid($request->getPost())) {
-				$user = new Users();
 				$email = $request->getPost('email');
 				$password = $request->getPost('password');
-				
-				$user->setEmail($email);
-				$user->setPassword($this->security->hash($password));
-				$user->setRole('member');
-				$user->setActive('N');
-				$success = $user->save();
-				if ($success) {
-					$form = new SignupForm();
-					$this->flashSession->success('Thanks for registering!');
-					return $this->response->redirect("auth/signin");
+
+				$user = Users::findFirstByEmail($email);
+				if($user) {
+					$this->flashSession->error('email was registered !');
 				} else {
-					echo "Sorry, the following problems were generated: ";
-					foreach ( $user->getMessages() as $message ) {
-						echo $message->getMessage(), "<br/>";
+					$user = new Users();
+					$user->setEmail($email);
+					$user->setPassword($this->security->hash($password));
+					$user->setRole('member');
+					$user->setActive('1');
+					$user->setDel_flg('0');
+					$success = $user->save();
+					if ($success) {
+						$form = new SignupForm();
+						$this->flashSession->success('Thanks for registering!');
+						return $this->response->redirect("auth/signin");
+					} else {
+						$this->flashSession->error('Sorry, the following problems were generated:');
+						echo "Sorry, the following problems were generated: ";
+						foreach ( $user->getMessages() as $message ) {
+							echo $message->getMessage(), "<br/>";
+							$this->flashSession->error($message->getMessage());
+						}
 					}
 				}
 			}
@@ -39,6 +47,7 @@ class AuthController extends ControllerBase {
 		$this->view->setVar('form', $form);
 	}
 	public function signinAction() {
+// 		$this->checkCookie();
 		if ($this->session->auth) {
 			return $this->response->redirect("");
 		}
@@ -62,13 +71,10 @@ class AuthController extends ControllerBase {
 						$success = $user->save();
 						if ($success) {
 							$user = Users::findFirstByEmail($email);
-							$this->session->set('auth', array (
-									'id' => $user->getId(),
-									'email' => $user->getEmail(),
-									'role' => $user->getRole(),
-									'last_login' => $user->getLast_login() 
-							));
+							$remember = $request->getPost('remember');
+							$this->auth->registerAuth($user, $remember);
 							$this->flashSession->success('thanks');
+							$this->flashSession->success($remember);
 							return $this->response->redirect("");
 						} else {
 							$this->flashSession->error('update login time failed.');
@@ -92,19 +98,9 @@ class AuthController extends ControllerBase {
 	}
 	public function signoutAction() {
 		$this->view->disable();
+		$this->cookies->delete('RMU');
 		$this->session->remove('auth');
 		return $this->response->redirect("");
-	}
-	private function createRememberEnviroment(Users $user) {
-		$userAgent = $this->request->getUserAgent();
-		$token = md5($user->email . $user->password . $userAgent);
-		
-		$expire = time() + 86400 * 8;
-		$this->cookies->set('RMU', $user->id, $expire);
-		$this->cookies->set('RMT', $token, $expire);
-	}
-	private function hasRememberMe() {
-		return $this->cookies->has('RMU');
 	}
 }
 

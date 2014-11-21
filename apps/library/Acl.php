@@ -39,6 +39,11 @@ class Acl extends \Phalcon\Mvc\User\Component
 	}
 	public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
 	{
+// 		$this->auth->checkCookie();
+	}
+	public function beforeDispatch(Event $event, Dispatcher $dispatcher)
+	{
+		$this->auth->checkCookie();
 	}
 
 }

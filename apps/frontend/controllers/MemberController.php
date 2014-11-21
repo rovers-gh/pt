@@ -14,7 +14,17 @@ class MemberController extends ControllerBase {
 		}
 	}
 	public function indexAction() {
+		echo "123";
+		if ($this->cookies->has('RMU')) {
 		
+			//Get the cookie
+			$rememberMe = $this->cookies->get('RMU');
+		
+			//Get the cookie's value
+			$user = $rememberMe->getValue();
+			print_r($user);
+		
+		}
 	}
 }
 

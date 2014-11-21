@@ -14,7 +14,7 @@ body {
 .signin i {
 	padding: 10px 0 0 0;
 	border-radius: 50%;
-	color: white;
+	color: #f5f5f5;
 	background-color: #DFDFDF;
 	font-size: 120px;
 	display: block;
@@ -23,6 +23,34 @@ body {
 	text-align: center;
 	margin: 10px auto;
 }
+#signined {
+	padding: 0px;
+	outline: none;
+	border: 0;
+	background-color: #2780E3;
+	padding-top: 7px;
+	height: 40px;
+	min-width: 40px;
+}
+#signined i {
+	padding: 3px 0 0 0;
+	border-radius: 50%;
+	color: #2780E3;
+	background-color: #EEEEEE;
+	font-size: 30px;
+	display: block;
+	height: 30px;
+	width: 30px;
+	text-align: center;
+	margin: 0 auto;
+}
+#signined:hover {
+	background-color: #1967be;
+}
+#signined:hover i{
+	color: #1967be;
+}
+
 #signinModal .modal-body{
 	margin: 0px 40px;
 }

@@ -3,6 +3,7 @@
 <div class="row">
 <div class="col-lg-6">soon</div>
 <div class="col-lg-6">
+<div align="" class="text-danger"><?php echo $this->flashSession->output(); ?></div>
 <?php echo Phalcon\Tag::form(array("auth/signup", "method" => "post", "class" => "form-horizontal", "novalidate" => "novalidate")); ?>
 
 <fieldset>

@@ -39,6 +39,9 @@ class XForm extends Form {
 				$html .= '<div class="col-lg-8">'.$element.'</div>';
 				$html .= '</div>';
 				break;
+			case 'Phalcon\Forms\Element\Check':
+				$html = '<div class="checkbox"><label>'.$element.$element->getLabel().'</label></div>';
+				break;
 			case 'Phalcon\Forms\Element\Submit':
 				$html = '<div class="form-group">';
 				$html .= '<div class="col-lg-offset-4 col-lg-8">'.$element.'</div>';

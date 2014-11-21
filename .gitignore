@@ -1,5 +1,6 @@
 .buildpath
 .project
 .settings/*
+apps/cache/*
 apps/logs/*
 !empty

@@ -9,8 +9,10 @@ class Users extends \Phalcon\Mvc\Model
 	private $id;
 	private $email;
 	private $password;
+	private $name;
 	private $role;
 	private $active;
+	private $del_flg;
 	private $last_login;
 	private $created;
 	private $modified;
@@ -55,6 +57,20 @@ class Users extends \Phalcon\Mvc\Model
 	}
 
 	/**
+	 * @return the $name
+	 */
+	public function getName() {
+		return $this->name;
+	}
+
+	/**
+	 * @param field_type $name
+	 */
+	public function setName($name) {
+		$this->name = $name;
+	}
+
+	/**
 	 * @return the $role
 	 */
 	public function getRole() {
@@ -80,6 +96,20 @@ class Users extends \Phalcon\Mvc\Model
 	 */
 	public function setActive($active) {
 		$this->active = $active;
+	}
+
+	/**
+	 * @return the $del_flg
+	 */
+	public function getDel_flg() {
+		return $this->del_flg;
+	}
+
+	/**
+	 * @param field_type $del_flg
+	 */
+	public function setDel_flg($del_flg) {
+		$this->del_flg = $del_flg;
 	}
 
 	/**
