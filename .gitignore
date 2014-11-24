@@ -3,4 +3,5 @@
 .settings/*
 apps/cache/*
 apps/logs/*
+apps/config/config.php
 !empty
