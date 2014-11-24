@@ -1,18 +1,17 @@
-<div class="signin" style="max-width: 380px;">
-	<h2 align="center">Sign in to countinue</h2>
-	<?php echo $this->tag->form(array("auth/signin", "method" => "post", "class" => "form-horizontal", "novalidate" => "novalidate")); ?>
+<div class="center-block" >
+	<h2 class="text-center">Sign in to countinue</h2>
+	<?php echo $this->tag->form(array("auth/signin", "method" => "post", "class" => "form-signin", "novalidate" => "novalidate")); ?>
 	<?php echo $form->render('csrf',array('value'=>$this->security->getToken()));?>
 	<fieldset class="well">
 		<i class="fa fa-user fa-5x"></i><br>
 		<div class="<?php echo count($form->getMessages())>0?' has-error':'';?>">
 			<?php echo $form->render('email'); ?>
 			<?php echo $form->render('password'); ?>
-			<div class="checkbox"><label><?php echo $form->render('remember'),$form->get('remember')->getLabel(); ?></label></div>
 		</div>
+		<div class="checkbox"><label><?php echo $form->render('remember'),$form->get('remember')->getLabel(); ?></label></div>
 		<div align="" class="text-danger"><?php echo $this->flashSession->output(); ?></div>
-		<br>
 		<?php echo $form->render('Sign in'); ?>
 	</fieldset>
 	<?php echo $this->tag->endForm() ?>
-	<div align="center"><?php echo $this->tag->linkTo('auth/signup', 'Create an account'); ?></div>
+	<div class="text-center"><?php echo $this->tag->linkTo('auth/signup', 'Create an account'); ?></div>
 </div>

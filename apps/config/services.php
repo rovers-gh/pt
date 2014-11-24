@@ -35,12 +35,12 @@ $di ['router'] = function () {
 /**
  * The URL component is used to generate all kind of urls in the application
  */
-// $di['url'] = function () {
-// $url = new UrlResolver();
-// $url->setBaseUri('/modules/');
-
-// return $url;
-// };
+$di['url'] = function () use($config) {
+	$url = new UrlResolver();
+	$url->setBaseUri($config->application->baseUri);
+	
+	return $url;
+};
 $di->set('logger', function () use($config) {
 	return new \Phalcon\Logger\Adapter\File($config->application->logDir . 'error-' . date('Ymd') . '.log');
 });

@@ -2,10 +2,14 @@
 
 namespace Modules\Frontend\Models\Entities;
 
+use Phalcon\Mvc\Model\Behavior\SoftDelete;
 use Phalcon\Mvc\Model\Validator\Email;
 
 class Users extends \Phalcon\Mvc\Model
 {
+	const DELETED = '1';	
+	const NOT_DELETED = '0';
+	
 	private $id;
 	private $email;
 	private $password;
@@ -13,6 +17,7 @@ class Users extends \Phalcon\Mvc\Model
 	private $role;
 	private $active;
 	private $del_flg;
+	private $regist_url;
 	private $last_login;
 	private $created;
 	private $modified;
@@ -20,12 +25,30 @@ class Users extends \Phalcon\Mvc\Model
 	public function initialize()
 	{
 		$this->setSource('users');
+		$this->useDynamicUpdate(true);
+		$this->addBehavior(new SoftDelete(
+				array(
+						'field' => 'del_flg',
+						'value' => self::DELETED
+				)
+		));
+	}
+	public function beforeCreate()
+	{
+		$this->created = new \Phalcon\Db\RawValue('now()');
 	}
 	/**
 	 * @return the $id
 	 */
 	public function getId() {
 		return $this->id;
+	}
+
+	/**
+	 * @param field_type $id
+	 */
+	public function setId($id) {
+		$this->id = $id;
 	}
 
 	/**
@@ -110,6 +133,20 @@ class Users extends \Phalcon\Mvc\Model
 	 */
 	public function setDel_flg($del_flg) {
 		$this->del_flg = $del_flg;
+	}
+
+	/**
+	 * @return the $regist_url
+	 */
+	public function getRegist_url() {
+		return $this->regist_url;
+	}
+
+	/**
+	 * @param field_type $regist_url
+	 */
+	public function setRegist_url($regist_url) {
+		$this->regist_url = $regist_url;
 	}
 
 	/**

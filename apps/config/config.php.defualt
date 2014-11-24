@@ -6,7 +6,7 @@ return new \Phalcon\Config(array(
 				'port' => '3306',
 				'username' => 'root',
 				'password' => '',
-				'dbname' => 'website' 
+				'dbname' => '' 
 		),
 		'application' => array(
 				'dirs' => array('controllers','models','forms','views','validators','library','plugins'),
@@ -15,8 +15,8 @@ return new \Phalcon\Config(array(
 				'pluginsDir' => APP_PATH . '/plugins/',
 				'cacheDir' => APP_PATH . '/cache/',
 				'logDir' => APP_PATH . '/logs/',
-				'baseUri' => '',
-				'cryptSalt' => '#1dj8$=dp?.ak//j1V$',
-				'debug' => 1
+				'baseUri' => '/',
+				'cryptSalt' => '',
+				'debug' => 0
 		)
 ) );

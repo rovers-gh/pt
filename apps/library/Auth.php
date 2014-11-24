@@ -7,15 +7,16 @@ class Auth extends Component {
 	{
 		return $this->cookies->has('RMU');
 	}
-	public function registerAuth(Users $user, $remember) {
-		$this->session->set('auth', array (
-				'id' => $user->getId(),
-				'name' => $user->getName() ? $user->getName() :$user->getEmail()
-		));
+	public function register(Users $user, $remember) {
+		$this->registerSession($user);
 		if($remember == 'yes') {
 			$expire = time() + 86400;
 			$this->cookies->set('RMU', $user->getId(), $expire);
 		}
+	}
+	public function destory() {
+		$this->cookies->delete('RMU');
+		$this->session->remove('auth');
 	}
 	public function checkCookie() {
 		if ($this->hasRememberMe()) {
@@ -25,13 +26,17 @@ class Auth extends Component {
 			$userId = $rememberMe->getValue();
 			$user = Users::findFirstById($userId);
 			if($user && $user->getDel_flg() === '0') {
-				$this->session->set('auth', array (
-						'id' => $user->getId(),
-						'name' => $user->getName() ? $user->getName() :$user->getEmail()
-				));
+				$this->registerSession($user);
 			} else {
 				$this->cookies->delete('RMU');
 			}
 		}
+	}
+	private function registerSession(Users $user) {
+		$this->session->set('auth', array (
+				'id' => $user->getId(),
+				'email' => $user->getEmail(),
+				'name' => $user->getName() ? $user->getName() :$user->getEmail()
+		));
 	}
 }

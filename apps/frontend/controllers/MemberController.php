@@ -10,21 +10,13 @@ use Modules\Frontend\Forms\Auth\SignupForm;
 class MemberController extends ControllerBase {
 	public function initialize() {
 		if(!$this->session->auth) {
-			return $this->response->redirect("");
+			return $this->response->redirect("/");
 		}
 	}
 	public function indexAction() {
-		echo "123";
-		if ($this->cookies->has('RMU')) {
-		
-			//Get the cookie
-			$rememberMe = $this->cookies->get('RMU');
-		
-			//Get the cookie's value
-			$user = $rememberMe->getValue();
-			print_r($user);
-		
-		}
+		echo $this->router->getModuleName();
+		echo $this->router->getControllerName();
+		echo "<br>action:",$this->router->getActionName();
 	}
 }
 

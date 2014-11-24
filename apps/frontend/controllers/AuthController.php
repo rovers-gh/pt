@@ -28,6 +28,7 @@ class AuthController extends ControllerBase {
 					$user->setRole('member');
 					$user->setActive('1');
 					$user->setDel_flg('0');
+					$user->setRegist_url($this->getCurrentUrl());
 					$success = $user->save();
 					if ($success) {
 						$form = new SignupForm();
@@ -59,20 +60,19 @@ class AuthController extends ControllerBase {
 				$email = $request->getPost('email');
 				$password = $request->getPost('password');
 				
-				$user = Users::findFirstByEmail($email);
-				// $user = Users::findFirst(array(
-				// "(email = :email: OR username = :email:) AND password = :password: AND active = '1'",
-				// 'bind' => array('email' => $email, 'password' => sha1($password))
-				// ));
-				// $this->view->disable();print_r($user);
+// 				$user = Users::findFirstByEmail($email);
+				$user = Users::findFirst(array(
+				"email = :email: AND active = '1' AND del_flg = '0'",
+				'bind' => array('email' => $email)
+				));
 				if ($user) {
 					if ($this->security->checkHash($password, $user->getPassword())) {
 						$user->setLast_login(new \Phalcon\Db\RawValue('now()'));
-						$success = $user->save();
+						$success = $user->save(null,array('last_login'));
 						if ($success) {
-							$user = Users::findFirstByEmail($email);
+// 							$user = Users::findFirstByEmail($email);
 							$remember = $request->getPost('remember');
-							$this->auth->registerAuth($user, $remember);
+							$this->auth->register($user, $remember);
 							$this->flashSession->success('thanks');
 							$this->flashSession->success($remember);
 							return $this->response->redirect("");
@@ -98,8 +98,7 @@ class AuthController extends ControllerBase {
 	}
 	public function signoutAction() {
 		$this->view->disable();
-		$this->cookies->delete('RMU');
-		$this->session->remove('auth');
+		$this->auth->destory();
 		return $this->response->redirect("");
 	}
 }

@@ -43,7 +43,7 @@ class SigninForm extends \XForm {
 		
 		// Remember
 		$remember = new Check('remember', array('value' => 'yes'));
-		$remember->setLabel('Remember me');
+		$remember->setLabel('Stay signed in');
 		$this->add($remember);
 		
 		// CSRF
