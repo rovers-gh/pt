@@ -18,5 +18,24 @@ return new \Phalcon\Config(array(
 				'baseUri' => '/',
 				'cryptSalt' => '',
 				'debug' => 0
-		)
+		),
+		'email' => array (
+				'transport' => 'smtp',
+				'host' => '',
+				'port' => 25,
+				'user' => '',
+				'password' => '',
+				'encryption' => null 
+		),
+		'templates' => array (
+				'default' => array (
+						'to' => '',
+						'cc' => '',
+						'bcc' => '',
+						'reply_to' => '',
+						'from' => '',
+						'subject' => '',
+						'template' => '' 
+				) 
+		) 
 ) );

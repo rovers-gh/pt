@@ -14,9 +14,13 @@ class MemberController extends ControllerBase {
 		}
 	}
 	public function indexAction() {
-		echo $this->router->getModuleName();
-		echo $this->router->getControllerName();
-		echo "<br>action:",$this->router->getActionName();
+		$message = \Swift_Message::newInstance('Wonderful Subject')
+		->setFrom(array('test4aipo@vista-sys.com' => 'TEST'))
+		->setTo(array('xiao.xuebin@vista-sys.com' => 'A name'))
+		->setBody('Here is the message itself')
+		;
+		$result = $this->mailer->send($message);
+		print_r($result);
 	}
 }
 

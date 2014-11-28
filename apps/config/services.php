@@ -106,3 +106,17 @@ $di->set('crypt', function() use ($config) {
 $di->set('auth', function () {
 	return new Auth();
 });
+
+$di->set('mailer', function () use ($config) {
+	switch ($config->email->transport) {
+		case 'sendmail':
+			break;
+		default:
+			$transport = Swift_SmtpTransport::newInstance($config->email->host, $config->email->port)
+			->setUsername($config->email->user)
+			->setPassword($config->email->password);
+			break;
+	}
+	$mailer = Swift_Mailer::newInstance($transport);
+	return $mailer;
+});
